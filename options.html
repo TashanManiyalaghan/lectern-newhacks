@@ -8,26 +8,30 @@
     <div id="main">
       <h2> Manage Classes </h2>
       <div id="addClasses">
-        <form>
+        <form id="addClassForm">
           <h4> Add new classes </h4>
           <label for="className">Class Name</label><br>
           <input type="text" id="className" name="className" value=""><br>
 
           <h5>Add Times</h5>
 
-          <select id="days" name="days">
+          <input type="time" id="time1" name="time1"
+          min="00:00" max="24:00" required>
+          <select id="days1" name="days">
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
             <option value="Wednesday">Wednesday</option>
-            <option value="Thrusday">Thrusday</option>
+            <option value="Thursday">Thursday</option>
             <option value="Friday">Friday</option>
             <option value="Saturday">Saturday</option>
             <option value="Sunday">Sunday</option>
           </select>
-
-
-          <input type="submit" value="Add Class">
+        
+          <br>
+          <input id="submitClass" type="submit" value="Add Class">
         </form>
+
+        <button id="addTime">Add times</button>
         
       </div>
 
