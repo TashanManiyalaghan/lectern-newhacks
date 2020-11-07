@@ -9,29 +9,34 @@
       <h2> Manage Classes </h2>
       <div id="addClasses">
         <form id="addClassForm">
-          <h4> Add new classes </h4>
+          <h4> Add new lecture </h4>
           <label for="className">Class Name</label><br>
-          <input type="text" id="className" name="className" value=""><br>
+          <input type="text" id="className" name="className" value="" required><br>
+          <label for="lectureLink">Lecture Link</label><br>
+          <input type="text" id="lectureLink" name="lectureLink" value="" required><br>
 
-          <h5>Add Times</h5>
+          <div id="timesList">
+            <h5>Class Time</h5>
 
-          <input type="time" id="time1" name="time1"
-          min="00:00" max="24:00" required>
-          <select id="days1" name="days">
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
-          </select>
+            <input type="time" id="time" name="time"
+            min="00:00" max="24:00" required>
+            <select id="days" name="days" required>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+            <br>
+          </div>
         
           <br>
-          <input id="submitClass" type="submit" value="Add Class">
+          <input id="addClassButton" type="submit" value="Add Class">
         </form>
 
-        <button id="addTime">Add times</button>
+        <!--<button id="addTime">Add times</button>-->
         
       </div>
 

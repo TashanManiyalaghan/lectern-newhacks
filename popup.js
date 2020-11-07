@@ -1,6 +1,10 @@
 let changeColor = document.getElementById('changeColor');
 
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
+chrome.storage.local.get('Monday', (value) => {
+  if(!value.isEmpty()){
+    for(var lectureObjects of value){
+      console.log(lectureObjects.className);
+    }
+  }
+  
+})
