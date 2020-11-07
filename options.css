@@ -1,5 +1,23 @@
 body{
-    background-color: rgba(34, 40, 49, 1);
+    background-color: #222831;
+    color: white;
+}
+
+#currentSchedule{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.flexCol{
+  flex: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.lectureNode{
+  background-color: #CCF6C8;
+  color: #222831;
 }
 
 #titleStyling, #main{
