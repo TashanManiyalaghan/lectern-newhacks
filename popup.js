@@ -12,6 +12,13 @@
   
 // })
 
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('mybtn');
+  btn.addEventListener('click', function() {
+    window.open('options.html');
+  });
+});
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", " Sunday"];
 
 var d = new Date();

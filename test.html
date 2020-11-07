@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+  <head>
+<title>
+  Lectern
+</title>
+<link rel="stylesheet" href="options.css">
+
+  </head>
+  <body>
+    <div id="main">
+      <h2> Manage Classes test</h2>
+      <div id="addClasses">
+        <form id="addClassForm">
+          <h4> Add new lecture </h4>
+          <label for="className">Class Name</label><br>
+          <input type="text" id="className" name="className" value="" required><br>
+          <label for="lectureLink">Lecture Link</label><br>
+          <input type="text" id="lectureLink" name="lectureLink" value="" required><br>
+
+          <div id="timesList">
+            <h5>Class Time</h5>
+
+            <input type="time" id="time" name="time"
+            min="00:00" max="24:00" required>
+            <select id="days" name="days" required>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+            <br>
+          </div>
+        
+          <br>
+          <input id="addClassButton" type="submit" value="Add Class">
+        </form>
+
+        <!--<button id="addTime">Add times</button>-->
+        
+      </div>
+    </div>
+
+    
+
+
+  </body>
+  
+  <!-- Scripts -->
+  <script src="options.js"></script>
+</html>
