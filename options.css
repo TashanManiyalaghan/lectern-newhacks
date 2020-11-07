@@ -2,7 +2,7 @@ body{
     background-color: rgba(34, 40, 49, 1);
 }
 
-#titleStyling{
+#titleStyling, #main{
     color: whitesmoke;
     font-family: "Tahoma", Gadget, sans-serif;
     font-weight: bold;
@@ -30,8 +30,13 @@ body{
 }
 
 #imageStyling{
+    max-width: 250px;
     border-radius: 200px;
-    width: 650px;
-    height: 210px;
+    width: auto;
+    height: auto;
     width: 40%;
+}
+
+#mybtn{
+    background: url(/res/cog.png);
 }

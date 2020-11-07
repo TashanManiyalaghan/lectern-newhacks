@@ -19,7 +19,6 @@ chrome.storage.local.get(days[day - 1], (value) => {
     const button = document.createElement('BUTTON');
     button.setAttribute('type', 'sumbit');
 
-    const courseDisplay = document.createElement('H6');
     const name = document.createTextNode(course.className);
     const time = document.createTextNode(course.lectureTime);
 
