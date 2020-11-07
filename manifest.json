@@ -3,6 +3,8 @@
   "name": "Lectern Extension",
   "version": "0.1",
 
+  "permissions": ["storage"],
+
   "description": "Keep track of your online lectures",
   "icons": { 
     "16": "res/icon_16.png",
@@ -15,7 +17,8 @@
         "24": "res/icon_24.png",
         "32": "res/icon_32.png"
       },
-
       "default_popup": "popup.html"
-  }
+  },
+  
+  "options_page": "options.html"
 }
