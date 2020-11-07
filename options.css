@@ -1,3 +1,17 @@
-#addClasses{
-    background-color: 
+body{
+    background-color: #222831;
+    color: white;
 }
+
+#currentSchedule{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#dayItem{
+  flex: auto;
+  text-align: center;
+}
+
+

@@ -34,24 +34,29 @@ addClassForm.onsubmit = () => {
   var lectureTime = document.getElementById('time').value;
   var lectureDay = document.getElementById('days').value;
 
-  var currentSavedDay;
-
   var lectureObject = {
     className: classNameValue,
     lectureLink: lectureLink,
     lectureTime: lectureTime
   } 
   chrome.storage.local.get([lectureDay], (result) => {
-    console.log(result);
     result[lectureDay].push(lectureObject);
-    // currentSavedDay = result[lectureDay];
-    // console.log(currentSavedDay);
-    console.log(result);
     chrome.storage.local.set(result);
   })
-  
-  
 }
+
+
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  for(var day of days){
+    if(changes[day] == undefined){
+      continue;
+    }
+    for(var dayItem of changes[day].newValue){
+      console.log(dayItem)
+    }
+  }
+  
+});
 
 
 
