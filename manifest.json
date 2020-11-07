@@ -16,6 +16,6 @@
         "32": "res/icon_32.png"
       },
 
-    "default_popup": "popup.html"
+      "default_popup": "popup.html"
   }
 }
