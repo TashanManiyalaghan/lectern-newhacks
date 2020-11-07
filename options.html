@@ -8,17 +8,18 @@
   </head>
   <body>
     <div id="main">
-      <h2> Manage Classes </h2>
+      <img id="imageStyling" src="/res/lectern.png" alt="logo for extension">
+      <h2 id="manageClassesStyling"> Manage Classes </h2>
       <div id="addClasses">
         <form id="addClassForm">
-          <h4> Add new lecture </h4>
-          <label for="className">Class Name</label><br>
+          <h4 id="addNewLectureStyling"> Add New Lecture </h4>
+          <label id="titleStyling" for="className">Class Name</label><br>
           <input type="text" id="className" name="className" value="" required><br>
-          <label for="lectureLink">Lecture Link</label><br>
+          <label id="titleStyling" for="lectureLink">Lecture Link</label><br>
           <input type="text" id="lectureLink" name="lectureLink" value="" required><br>
 
           <div id="timesList">
-            <h5>Class Time</h5>
+            <label id="titleStyling">Class Time</label><br>
 
             <input type="time" id="time" name="time"
             min="00:00" max="24:00" required>

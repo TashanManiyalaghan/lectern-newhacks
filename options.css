@@ -1,3 +1,37 @@
-#addClasses{
-    background-color: 
+body{
+    background-color: rgba(34, 40, 49, 1);
+}
+
+#titleStyling{
+    color: whitesmoke;
+    font-family: "Tahoma", Gadget, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+}
+#manageClassesStyling{
+    color: whitesmoke;
+    font-size: 20px;
+}
+
+#addNewLectureStyling{
+    color: whitesmoke;
+    font-size: 16px;
+}
+
+#addClassButton{
+    font-family: Verdana, Tahoma, sans-serif;
+    background-color: #F9D89C;
+    border-color: black;
+    border-radius: 8px;
+    font-size: 12px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}
+
+#imageStyling{
+    border-radius: 200px;
+    width: 650px;
+    height: 210px;
+    width: 40%;
 }
