@@ -12,7 +12,7 @@
   
 // })
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", " Sunday"];
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 var d = new Date();
 var day = d.getDay();
@@ -24,9 +24,8 @@ chrome.storage.local.get(days[day - 1], (value) => {
 
   for (var course of dayArray) {
     const button = document.createElement('BUTTON');
-    button.setAttribute('type', 'sumbit');
+    button.setAttribute('type', 'submit');
 
-    const courseDisplay = document.createElement('H6');
     const name = document.createTextNode(course.className);
     const time = document.createTextNode(course.lectureTime);
 

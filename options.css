@@ -9,9 +9,15 @@ body{
   flex-wrap: nowrap;
 }
 
-#dayItem{
+.flexCol{
   flex: auto;
   text-align: center;
+  padding: 20px;
+}
+
+.lectureNode{
+  background-color: #CCF6C8;
+  color: #222831;
 }
 
 
