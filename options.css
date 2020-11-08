@@ -29,6 +29,14 @@ body{
     margin: 10px;
 }
 
+#textStylingB{
+  color: rgb(0, 0, 0);
+  font-family: 'Lato', sans-serif;
+  margin: 10px;
+}
+
+
+
 #className, #lectureLink, #time, #days{
     margin: 7px;
 }

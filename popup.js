@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var btn = document.getElementById('mybtn');
+  var btn = document.getElementById('settingsButton');
   btn.addEventListener('click', function() {
     window.open('options.html');
   });
@@ -18,7 +18,7 @@ chrome.storage.local.get(days[day - 1], (value) => {
   for (var course of dayArray) {
     const button = document.createElement('BUTTON');
     button.setAttribute('type', 'sumbit');
-    button.setAttribute('id','stylingButton')
+    button.setAttribute('class','stylingButton')
 
     const title = document.createTextNode(course.className + " @ " + course.lectureTime);
 

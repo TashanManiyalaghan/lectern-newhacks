@@ -63,6 +63,8 @@ var renderSchedule = () => {
 
       const name = document.createElement('h4');
       const time = document.createElement('h4');
+      name.setAttribute('id', 'textStylingB');
+      time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
 
@@ -99,6 +101,8 @@ var renderSchedule = () => {
 
       const name = document.createElement('h4');
       const time = document.createElement('h4');
+      name.setAttribute('id', 'textStylingB');
+      time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
 
@@ -134,6 +138,8 @@ var renderSchedule = () => {
 
       const name = document.createElement('h4');
       const time = document.createElement('h4');
+      name.setAttribute('id', 'textStylingB');
+      time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
 
@@ -170,6 +176,8 @@ var renderSchedule = () => {
 
       const name = document.createElement('h4');
       const time = document.createElement('h4');
+      name.setAttribute('id', 'textStylingB');
+      time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
 
@@ -206,6 +214,8 @@ var renderSchedule = () => {
 
       const name = document.createElement('h4');
       const time = document.createElement('h4');
+      name.setAttribute('id', 'textStylingB');
+      time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
 
@@ -242,6 +252,8 @@ var renderSchedule = () => {
 
       const name = document.createElement('h4');
       const time = document.createElement('h4');
+      name.setAttribute('id', 'textStylingB');
+      time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
 
@@ -278,6 +290,8 @@ var renderSchedule = () => {
 
       const name = document.createElement('h4');
       const time = document.createElement('h4');
+      name.setAttribute('id', 'textStylingB');
+      time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
 
