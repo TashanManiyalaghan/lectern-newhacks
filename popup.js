@@ -10,6 +10,12 @@ const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 var d = new Date();
 var day = d.getDay();
 
+day+=7;
+
+if (day > 7) {
+  day = day%7;
+}
+
 chrome.storage.local.get(days[day - 1], (value) => {
   var dayArray = value[days[day - 1]];
   if(dayArray.length == 0){
