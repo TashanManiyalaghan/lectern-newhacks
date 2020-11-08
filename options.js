@@ -19,18 +19,30 @@ function launch() {
   });
 }
 
+function compare( a, b ) {
+  if ( a.lectureTime < b.lectureTime ){
+    return -1;
+  }
+  if ( a.lectureTime > b.lectureTime ){
+    return 1;
+  }
+  return 0;
+}
+
 addClassForm.onsubmit = () => {
   var classNameValue = document.getElementById('className').value;
   var lectureLink = document.getElementById('lectureLink').value;
   var lectureTime = document.getElementById('time').value;
   var lectureDay = document.getElementById('days').value;
+  var colour = document.getElementById('colours').value;
   var minutes = findMinutes(lectureTime, lectureDay);
   var daysInMin = 10080;
 
   var lectureObject = {
     className: classNameValue,
     lectureLink: lectureLink,
-    lectureTime: lectureTime
+    lectureTime: lectureTime,
+    courseColour: colour
   } 
 
   chrome.alarms.create(classNameValue + lectureDay, {delayInMinutes: minutes, periodInMinutes: daysInMin});
@@ -131,10 +143,13 @@ var renderSchedule = () => {
     var dayArray = result[days[0]];
     var id = 0;
 
+    dayArray.sort(compare);
+
     for(var dayItem of dayArray){
       var column = document.getElementById("dayColMonday");
       const lectureNode = document.createElement('div');
       lectureNode.setAttribute('class', 'lectureNode');
+      lectureNode.setAttribute('style', "background-color: " + dayItem.courseColour);
       lectureNode.setAttribute('id', id);
       const deleteButton = document.createElement('button');
       deleteButton.setAttribute('id', id)
@@ -154,7 +169,6 @@ var renderSchedule = () => {
       time.setAttribute('id', 'textStylingB');
       name.innerHTML = dayItem.className;
       time.innerHTML = dayItem.lectureTime;
-
       
       lectureNode.appendChild(name);
       lectureNode.appendChild(time);
@@ -168,11 +182,14 @@ var renderSchedule = () => {
     var dayArray = result[days[1]];
     var id = 0;
     
+    dayArray.sort(compare);
+
     for(var dayItem of dayArray){
       
       var column = document.getElementById("dayColTuesday");
       const lectureNode = document.createElement('div');
       lectureNode.setAttribute('class', 'lectureNode');
+      lectureNode.setAttribute('style', "background-color: " + dayItem.courseColour);
       lectureNode.setAttribute('id', id);
 
       const deleteButton = document.createElement('button');
@@ -205,12 +222,15 @@ var renderSchedule = () => {
   chrome.storage.local.get([days[2]], (result) => {
     var dayArray = result[days[2]];
     var id = 0;
+
+    dayArray.sort(compare);
     
     for(var dayItem of dayArray){
       
       var column = document.getElementById("dayColWednesday");
       const lectureNode = document.createElement('div');
       lectureNode.setAttribute('class', 'lectureNode');
+      lectureNode.setAttribute('style', "background-color: " + dayItem.courseColour);
       lectureNode.setAttribute('id', id);
 
       const deleteButton = document.createElement('button');
@@ -244,12 +264,15 @@ var renderSchedule = () => {
   chrome.storage.local.get([days[3]], (result) => {
     var dayArray = result[days[3]];
     var id = 0;
+
+    dayArray.sort(compare);
     
     for(var dayItem of dayArray){
       
       var column = document.getElementById("dayColThursday");
       const lectureNode = document.createElement('div');
       lectureNode.setAttribute('class', 'lectureNode');
+      lectureNode.setAttribute('style', "background-color: " + dayItem.courseColour);
       lectureNode.setAttribute('id', id);
 
       const deleteButton = document.createElement('button');
@@ -283,12 +306,15 @@ var renderSchedule = () => {
   chrome.storage.local.get([days[4]], (result) => {
     var dayArray = result[days[4]];
     var id = 0;
+
+    dayArray.sort(compare);
     
     for(var dayItem of dayArray){
       
       var column = document.getElementById("dayColFriday");
       const lectureNode = document.createElement('div');
       lectureNode.setAttribute('class', 'lectureNode');
+      lectureNode.setAttribute('style', "background-color: " + dayItem.courseColour);
       lectureNode.setAttribute('id', id);
 
       const deleteButton = document.createElement('button');
@@ -322,12 +348,15 @@ var renderSchedule = () => {
   chrome.storage.local.get([days[5]], (result) => {
     var dayArray = result[days[5]];
     var id = 0;
+
+    dayArray.sort(compare);
     
     for(var dayItem of dayArray){
       
       var column = document.getElementById("dayColSaturday");
       const lectureNode = document.createElement('div');
       lectureNode.setAttribute('class', 'lectureNode');
+      lectureNode.setAttribute('style', "background-color: " + dayItem.courseColour);
       lectureNode.setAttribute('id', id);
 
       const deleteButton = document.createElement('button');
@@ -361,12 +390,15 @@ var renderSchedule = () => {
   chrome.storage.local.get([days[6]], (result) => {
     var dayArray = result[days[6]];
     var id = 0;
+
+    dayArray.sort(compare);
     
     for(var dayItem of dayArray){
       
       var column = document.getElementById("dayColSunday");
       const lectureNode = document.createElement('div');
       lectureNode.setAttribute('class', 'lectureNode');
+      lectureNode.setAttribute('style', "background-color: " + dayItem.courseColour);
       lectureNode.setAttribute('id', id);
 
       const deleteButton = document.createElement('button');
