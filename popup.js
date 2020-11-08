@@ -5,6 +5,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+function compare( a, b ) {
+  if ( a.lectureTime < b.lectureTime ){
+    return -1;
+  }
+  if ( a.lectureTime > b.lectureTime ){
+    return 1;
+  }
+  return 0;
+}
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 var d = new Date();
@@ -18,6 +28,8 @@ if (day > 7) {
 
 chrome.storage.local.get(days[day - 1], (value) => {
   var dayArray = value[days[day - 1]];
+  dayArray.sort(compare);
+
   if(dayArray.length == 0){
     var noLectures = document.createElement('p');
     noLectures.setAttribute('style', 'color: white;')
