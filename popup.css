@@ -1,0 +1,14 @@
+body{
+    background-color: #222831;
+}
+
+.stylingButton{
+    font-family: 'Lato', sans-serif;
+    background-color: whitesmoke;
+    border-radius: 7px;
+    font-size: 12px;
+    width: 175px;
+    height: 30px;
+    margin: 5px;
+    text-align: center;
+}
