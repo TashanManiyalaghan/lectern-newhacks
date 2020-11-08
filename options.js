@@ -2,28 +2,115 @@ var timesList = document.getElementById('timesList');
 // var addTimeButton = document.getElementById('addTime')
 var addClassForm = document.getElementById('addClassForm')
 
-
 var times = [];
 var numOfTimes = 1;
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+chrome.alarms.onAlarm.addListener(function() {
+  chrome.notifications.create(classNameValue + lectureDay, "u have class");
+  launch();
+  console.log("works");
+});
+
+function launch() {
+  chrome.app.window.create('index.html', {
+    id: 'main',
+    bounds: { width: 620, height: 500 }
+  });
+}
 
 addClassForm.onsubmit = () => {
   var classNameValue = document.getElementById('className').value;
   var lectureLink = document.getElementById('lectureLink').value;
   var lectureTime = document.getElementById('time').value;
   var lectureDay = document.getElementById('days').value;
+  var minutes = findMinutes(lectureTime, lectureDay);
+  var daysInMin = 10080;
 
   var lectureObject = {
     className: classNameValue,
     lectureLink: lectureLink,
     lectureTime: lectureTime
   } 
+
+  chrome.alarms.create(classNameValue + lectureDay, {delayInMinutes: minutes, periodInMinutes: daysInMin});
   chrome.storage.local.get([lectureDay], (result) => {
     result[lectureDay].push(lectureObject);
     chrome.storage.local.set(result);
   })
 }
 
+function findMinutes(time, day) {
+  var current = new Date();
+  var minutes = current.getMinutes();
+  var hours = current.getHours();
+  var days = current.getDay();
+  var lectureMinutes = parseInt(time.slice(3, 4), 10);
+  var lectureHours = parseInt(time.slice(0, 1), 10);
+  var temp = 0;
+  var numDay;
+  
+  switch (day) {
+    case "Monday":
+      numDay = 1;
+      break;
+    case "Tuesday":
+      numDay = 2;
+      break;
+    case "Wednesday":
+      numDay = 3;
+      break;
+    case "Thursday":
+      numDay = 4;
+      break;
+    case "Friday":
+      numDay = 5;
+      break;
+    case "Saturday":
+      numDay = 6;
+      break;
+    case "Sunday":
+      numDay = 7;
+      break;
+  }
+
+  console.log(lectureMinutes);
+
+  if (numDay == days && minutes < lectureMinutes && hours < lectureHours) {
+    temp+=lectureMinutes - minutes;
+    temp+=60*(lectureHours - hours);
+    return temp;
+  } else if (numDay == days && minutes < lectureMinutes && hours == lectureHours) {
+    temp+=lectureMinutes - minutes;
+    console.log(temp);
+    return temp;
+  } else if (numDay == days && hours < lectureHours) {
+    temp+=60 - minutes;
+    hours++;
+    temp+=60*(lectureHours - hours);
+    temp+=lectureMinutes;
+    return temp;
+  }
+
+  temp+=60 - minutes;
+  hours++;
+
+  temp+=60*(24 - hours);
+  hours = 0;
+  days++;
+
+  if (days - numDay < 0){
+    temp+= (24*60)*(7 + days - numDay);
+  } else {
+    temp+= (24*60)*(days - numDay);
+  }
+
+  temp+= 24*60*lectureHours;
+  temp+= 60*lectureHours;
+  temp+= lectureMinutes;
+  
+  return temp;
+}
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
   renderSchedule();
