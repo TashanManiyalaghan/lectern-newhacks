@@ -22,6 +22,7 @@ chrome.storage.local.get(days[day - 1], (value) => {
     for (var course of dayArray) {
       const button = document.createElement('BUTTON');
       button.setAttribute('type', 'sumbit');
+      button.setAttribute('style', "background-color: " + course.courseColour);
       button.setAttribute('class','stylingButton')
   
       const title = document.createTextNode(course.className + " @ " + course.lectureTime);

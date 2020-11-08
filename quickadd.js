@@ -10,18 +10,17 @@ addClassForm.onsubmit = () => {
     var lectureLink = document.getElementById('lectureLink').value;
     var lectureTime = document.getElementById('time').value;
     var lectureDay = document.getElementById('days').value;
-
+    var colour = document.getElementById('colours').value;
   
     var lectureObject = {
       className: classNameValue,
       lectureLink: lectureLink,
-      lectureTime: lectureTime
+      lectureTime: lectureTime,
+      courseColour: colour
     } 
     chrome.storage.local.get([lectureDay], (result) => {
       console.log(result);
       result[lectureDay].push(lectureObject);
-      // currentSavedDay = result[lectureDay];
-      // console.log(currentSavedDay);
       console.log(result);
       chrome.storage.local.set(result);
     })

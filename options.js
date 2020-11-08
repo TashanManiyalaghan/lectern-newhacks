@@ -117,7 +117,6 @@ function findMinutes(time, day) {
     temp+= (24*60)*(days - numDay);
   }
 
-  temp+= 24*60*lectureHours;
   temp+= 60*lectureHours;
   temp+= lectureMinutes;
   
