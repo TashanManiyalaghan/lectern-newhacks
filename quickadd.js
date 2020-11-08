@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('mybtn');
-    btn.addEventListener('click', function() {
+    var button = document.getElementById('settingsButton');
+    button.addEventListener('click', function() {
       window.open('options.html');
     });
   });
@@ -10,8 +10,7 @@ addClassForm.onsubmit = () => {
     var lectureLink = document.getElementById('lectureLink').value;
     var lectureTime = document.getElementById('time').value;
     var lectureDay = document.getElementById('days').value;
-  
-    var currentSavedDay;
+
   
     var lectureObject = {
       className: classNameValue,

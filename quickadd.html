@@ -3,6 +3,7 @@
 <title>
   Lectern
 </title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <link rel="stylesheet" href="options.css">
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
 
@@ -10,7 +11,52 @@
   </head>
   <body>
     <div id="main">
-      <div id="addClasses">
+      <div class="addClasses">
+        <div>
+          <h4 style="display: inline-block; float: left;">Add a new Lecture</h4>
+          <button type="submit" id="settingsButton" class="btn btn-light float-right">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+            </svg>
+          </button>
+        </div>
+
+          <br>
+          <br>
+          
+        <form id="addClassForm" style="width:350px">
+          <div class="form-group">
+            <label for="className">Lecture Name</label>
+            <input type="text" class="form-control" id="className" required>
+          </div>
+          <div class="form-group">
+            <label for="lectureLink">Lecture Link</label>
+            <input type="text" class="form-control" id="lectureLink" required>
+            <small id="emailHelp" class="form-text text-muted">Make sure your link includes the https://</small>
+          </div>
+
+          <div class="form-group">
+            <label for="time">Lecture Time</label>
+            <br>
+            <input type="time" id="time" name="time"
+            min="00:00" max="24:00" required>
+            <select id="days" name="days" class="form-control form-inline" required>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+          </div>
+            
+          <button type="submit" class="btn btn-primary">Add Lecture</button>
+        </form>     
+      </div>
+    </div>
+    
+      <!-- <div id="addClasses">
         <form id="addClassForm">
           <h2 id="textStyling"> Add New Lecture </h2>
           <label id="textStyling" for="className">Class Name</label><br>
@@ -45,7 +91,7 @@
           </svg>
         </button>
       </div>
-    </div>
+    </div> -->
   </body>
   
   <!-- Scripts -->

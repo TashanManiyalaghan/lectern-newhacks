@@ -3,12 +3,26 @@ body{
 }
 
 .stylingButton{
-    font-family: 'Lato', sans-serif;
-    background-color: whitesmoke;
-    border-radius: 7px;
-    font-size: 12px;
-    width: 175px;
-    height: 30px;
-    margin: 5px;
-    text-align: center;
+  font-family: 'Lato', sans-serif;
+  background-color: whitesmoke;
+  border-width: 0px;
+  border-radius: 7px;
+  font-size: 12px;
+  width: 175px;
+  height: 35px;
+  margin: 5px;
+  text-align: center;
+  transition-duration: 350ms;
+}
+
+.stylingButton:hover{
+  background-color: rgb(196, 196, 196);
+}
+
+.imageStyling{
+  max-width: 50px;
+  border-radius: 200px;
+  width: auto;
+  height: auto;
+  width: 40%;
 }

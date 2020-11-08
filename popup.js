@@ -10,23 +10,30 @@ const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 var d = new Date();
 var day = d.getDay();
 
-console.log(day);
-
 chrome.storage.local.get(days[day - 1], (value) => {
   var dayArray = value[days[day - 1]];
-
-  for (var course of dayArray) {
-    const button = document.createElement('BUTTON');
-    button.setAttribute('type', 'sumbit');
-    button.setAttribute('class','stylingButton')
-
-    const title = document.createTextNode(course.className + " @ " + course.lectureTime);
-
-    button.appendChild(title);
-    document.body.appendChild(button);
-
-    button.onclick = function () {
-      window.open(course.lectureLink);
+  if(dayArray.length == 0){
+    var noLectures = document.createElement('p');
+    noLectures.setAttribute('style', 'color: white;')
+    noLectures.innerText = "No lectures scheduled :)"
+    var container = document.getElementById('popupContainer')
+    container.appendChild(noLectures);
+  }else{
+    for (var course of dayArray) {
+      const button = document.createElement('BUTTON');
+      button.setAttribute('type', 'sumbit');
+      button.setAttribute('class','stylingButton')
+  
+      const title = document.createTextNode(course.className + " @ " + course.lectureTime);
+  
+      button.appendChild(title);
+  
+      var container = document.getElementById('popupContainer')
+      container.appendChild(button);
+  
+      button.onclick = function () {
+        window.open(course.lectureLink);
+      }
     }
   }
 });
