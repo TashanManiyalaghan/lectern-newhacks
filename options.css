@@ -16,31 +16,27 @@ body{
 }
 
 .lectureNode{
-  background-color: #CCF6C8;
+  background-color: whitesmoke;
   color: #222831;
+  border-radius: 7px;
+  padding: 5px;
+  margin: 10px;
 }
 
-#titleStyling, #main{
+#textStyling{
     color: whitesmoke;
-    font-family: "Tahoma", Gadget, sans-serif;
-    font-weight: bold;
-    font-size: 12px;
-}
-#manageClassesStyling{
-    color: whitesmoke;
-    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    margin: 10px;
 }
 
-#addNewLectureStyling{
-    color: whitesmoke;
-    font-size: 16px;
+#className, #lectureLink, #time, #days{
+    margin: 7px;
 }
 
 #addClassButton{
-    font-family: Verdana, Tahoma, sans-serif;
-    background-color: #F9D89C;
-    border-color: black;
-    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    background-color: whitesmoke;
+    border-radius: 7px;
     font-size: 12px;
     width: 100px;
     height: 30px;
@@ -48,7 +44,7 @@ body{
 }
 
 #imageStyling{
-    max-width: 250px;
+    max-width: 180px;
     border-radius: 200px;
     width: auto;
     height: auto;
@@ -56,5 +52,9 @@ body{
 }
 
 #mybtn{
-    background: url(/res/cog.png);
+   padding: 2px;
+   width: 30px;
+   height: 30px;
+   margin: 7px;
+   border-radius: 30px;
 }

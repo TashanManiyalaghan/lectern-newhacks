@@ -17,13 +17,12 @@ chrome.storage.local.get(days[day - 1], (value) => {
 
   for (var course of dayArray) {
     const button = document.createElement('BUTTON');
-    button.setAttribute('type', 'submit');
+    button.setAttribute('type', 'sumbit');
+    button.setAttribute('id','stylingButton')
 
-    const name = document.createTextNode(course.className);
-    const time = document.createTextNode(course.lectureTime);
+    const title = document.createTextNode(course.className + " @ " + course.lectureTime);
 
-    button.appendChild(name);
-    button.appendChild(time);
+    button.appendChild(title);
     document.body.appendChild(button);
 
     button.onclick = function () {
