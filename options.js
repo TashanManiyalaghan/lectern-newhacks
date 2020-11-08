@@ -6,11 +6,6 @@ var times = [];
 var numOfTimes = 1;
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-chrome.alarms.onAlarm.addListener(function() {
-  chrome.notifications.create(classNameValue + lectureDay, "u have class");
-  launch();
-  console.log("works");
-});
 
 function launch() {
   chrome.app.window.create('index.html', {
@@ -25,7 +20,7 @@ addClassForm.onsubmit = () => {
   var lectureTime = document.getElementById('time').value;
   var lectureDay = document.getElementById('days').value;
   var minutes = findMinutes(lectureTime, lectureDay);
-  var daysInMin = 10080;
+  var sevenDaysInMins = 10080;
 
   var lectureObject = {
     className: classNameValue,
@@ -33,7 +28,8 @@ addClassForm.onsubmit = () => {
     lectureTime: lectureTime
   } 
 
-  chrome.alarms.create(classNameValue + lectureDay, {delayInMinutes: minutes, periodInMinutes: daysInMin});
+  setAlarm(classNameValue + lectureDay, minutes, sevenDaysInMins);
+
   chrome.storage.local.get([lectureDay], (result) => {
     result[lectureDay].push(lectureObject);
     chrome.storage.local.set(result);
@@ -41,75 +37,77 @@ addClassForm.onsubmit = () => {
 }
 
 function findMinutes(time, day) {
+  var sevenDaysInMins = 10080
   var current = new Date();
-  var minutes = current.getMinutes();
-  var hours = current.getHours();
-  var days = current.getDay();
-  var lectureMinutes = parseInt(time.slice(3, 4), 10);
-  var lectureHours = parseInt(time.slice(0, 1), 10);
-  var temp = 0;
-  var numDay;
+  var currMinutes = current.getMinutes();
+  var currHours = current.getHours();
+  var currDays = current.getDay();
+  var lectureMinutes = parseInt(time.slice(3, 5));
+  var lectureHours = parseInt(time.slice(0, 2));
+  var scheDay;
   
   switch (day) {
     case "Monday":
-      numDay = 1;
+      scheDay = 1;
       break;
     case "Tuesday":
-      numDay = 2;
+      scheDay = 2;
       break;
     case "Wednesday":
-      numDay = 3;
+      scheDay = 3;
       break;
     case "Thursday":
-      numDay = 4;
+      scheDay = 4;
       break;
     case "Friday":
-      numDay = 5;
+      scheDay = 5;
       break;
     case "Saturday":
-      numDay = 6;
+      scheDay = 7;
       break;
     case "Sunday":
-      numDay = 7;
+      scheDay = 0;
       break;
   }
 
-  console.log(lectureMinutes);
-
-  if (numDay == days && minutes < lectureMinutes && hours < lectureHours) {
-    temp+=lectureMinutes - minutes;
-    temp+=60*(lectureHours - hours);
-    return temp;
-  } else if (numDay == days && minutes < lectureMinutes && hours == lectureHours) {
-    temp+=lectureMinutes - minutes;
-    console.log(temp);
-    return temp;
-  } else if (numDay == days && hours < lectureHours) {
-    temp+=60 - minutes;
-    hours++;
-    temp+=60*(lectureHours - hours);
-    temp+=lectureMinutes;
-    return temp;
+  //Same hour, greater minutes
+  if(scheDay == currDays && lectureHours == currHours && lectureMinutes > currMinutes){
+    var minuteDiff = lectureMinutes - currMinutes;
+    return minuteDiff - 10;
   }
 
-  temp+=60 - minutes;
-  hours++;
-
-  temp+=60*(24 - hours);
-  hours = 0;
-  days++;
-
-  if (days - numDay < 0){
-    temp+= (24*60)*(7 + days - numDay);
-  } else {
-    temp+= (24*60)*(days - numDay);
+  //Greater hour, greater minutes
+  if(scheDay == currDays && lectureHours > currHours && lectureMinutes > currMinutes){
+    var minuteDiff = lectureMinutes - currMinutes;
+    var hourDiff = lectureHours - currHours;
+    return hourDiff * 60 + minuteDiff - 10;
   }
 
-  temp+= 24*60*lectureHours;
-  temp+= 60*lectureHours;
-  temp+= lectureMinutes;
+  if(scheDay == currDays){
+    return sevenDaysInMins + (lectureHours - currHours * 60) + (lectureMinutes - currDays);
+  }
+  var minutesToReturn = 0;
+
+  minutesToReturn += 60 - currMinutes;
+  currHours++;
+
+  if(currHours != 0) {
+    minutesToReturn += 60*(24 - currHours);
+    currHours = 0;
+    currDays++;
+  }
   
-  return temp;
+
+  if(scheDay - currDays < 0){
+    minutesToReturn += (24 * 60) * (7 + scheDay - currDays);
+  }else{
+    minutesToReturn += (24 * 60) * (scheDay - currDays);
+  }
+
+  minutesToReturn += 60 * lectureHours;
+  minutesToReturn += lectureMinutes;
+  
+  return minutesToReturn - 10;
 }
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
@@ -141,6 +139,7 @@ var renderSchedule = () => {
       deleteButton.setAttribute('class', "btn btn-danger")
       deleteButton.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>';
       deleteButton.onclick = () => {
+        deleteAlarm(dayItem.className + days[0]);
         chrome.storage.local.get([days[0]], (result) => {
           result[days[0]].splice(lectureNode.getAttribute('id'), 1);
           console.log(result[days[0]]);
@@ -180,6 +179,7 @@ var renderSchedule = () => {
       deleteButton.setAttribute('class', "btn btn-danger")
       deleteButton.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>';
       deleteButton.onclick = () => {
+        deleteAlarm(dayItem.className + days[1]);
         chrome.storage.local.get([days[1]], (result) => {
           result[days[1]].splice(lectureNode.getAttribute('id'), 1);
           console.log(result[days[1]]);
@@ -218,6 +218,7 @@ var renderSchedule = () => {
       deleteButton.setAttribute('id', id)
       deleteButton.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>';
       deleteButton.onclick = () => {
+        deleteAlarm(dayItem.className + days[2]);
         chrome.storage.local.get([days[2]], (result) => {
           result[days[2]].splice(lectureNode.getAttribute('id'), 1);
           console.log(result[days[2]]);
@@ -257,6 +258,7 @@ var renderSchedule = () => {
       deleteButton.setAttribute('id', id)
       deleteButton.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>';
       deleteButton.onclick = () => {
+        deleteAlarm(dayItem.className + days[3]);
         chrome.storage.local.get([days[3]], (result) => {
           result[days[3]].splice(lectureNode.getAttribute('id'), 1);
           console.log(result[days[3]]);
@@ -296,6 +298,7 @@ var renderSchedule = () => {
       deleteButton.setAttribute('id', id)
       deleteButton.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>';
       deleteButton.onclick = () => {
+        deleteAlarm(dayItem.className + days[4]);
         chrome.storage.local.get([days[4]], (result) => {
           result[days[4]].splice(lectureNode.getAttribute('id'), 1);
           console.log(result[days[4]]);
@@ -335,6 +338,7 @@ var renderSchedule = () => {
       deleteButton.setAttribute('id', id)
       deleteButton.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>';
       deleteButton.onclick = () => {
+        deleteAlarm(dayItem.className + days[5]);
         chrome.storage.local.get([days[5]], (result) => {
           result[days[5]].splice(lectureNode.getAttribute('id'), 1);
           console.log(result[days[5]]);
@@ -374,9 +378,9 @@ var renderSchedule = () => {
       deleteButton.setAttribute('id', id)
       deleteButton.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>';
       deleteButton.onclick = () => {
+        deleteAlarm(dayItem.className + days[6]);
         chrome.storage.local.get([days[6]], (result) => {
           result[days[6]].splice(lectureNode.getAttribute('id'), 1);
-          console.log(result[days[6]]);
           chrome.storage.local.set(result);
         })
       }
@@ -397,6 +401,16 @@ var renderSchedule = () => {
     }
   })
 
+}
+
+
+
+function setAlarm(alarmName, minutes, sevenDaysInMins) {
+  chrome.alarms.create(alarmName, {delayInMinutes: minutes, periodInMinutes: sevenDaysInMins});
+}
+
+function deleteAlarm(alarmName){
+  chrome.alarms.clear(alarmName);
 }
 
 renderSchedule();
