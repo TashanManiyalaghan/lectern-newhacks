@@ -19,9 +19,7 @@ addClassForm.onsubmit = () => {
       courseColour: colour
     } 
     chrome.storage.local.get([lectureDay], (result) => {
-      console.log(result);
       result[lectureDay].push(lectureObject);
-      console.log(result);
       chrome.storage.local.set(result);
     })
   }

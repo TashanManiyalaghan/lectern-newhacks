@@ -1,5 +1,4 @@
 var timesList = document.getElementById('timesList');
-// var addTimeButton = document.getElementById('addTime')
 var addClassForm = document.getElementById('addClassForm')
 
 var times = [];
