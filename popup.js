@@ -5,13 +5,31 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+function compare( a, b ) {
+  if ( a.lectureTime < b.lectureTime ){
+    return -1;
+  }
+  if ( a.lectureTime > b.lectureTime ){
+    return 1;
+  }
+  return 0;
+}
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 var d = new Date();
 var day = d.getDay();
 
+day+=7;
+
+if (day > 7) {
+  day = day%7;
+}
+
 chrome.storage.local.get(days[day - 1], (value) => {
   var dayArray = value[days[day - 1]];
+  dayArray.sort(compare);
+
   if(dayArray.length == 0){
     var noLectures = document.createElement('p');
     noLectures.setAttribute('style', 'color: white;')
@@ -22,6 +40,7 @@ chrome.storage.local.get(days[day - 1], (value) => {
     for (var course of dayArray) {
       const button = document.createElement('BUTTON');
       button.setAttribute('type', 'sumbit');
+      button.setAttribute('style', "background-color: " + course.courseColour);
       button.setAttribute('class','stylingButton')
   
       const title = document.createTextNode(course.className + " @ " + course.lectureTime);

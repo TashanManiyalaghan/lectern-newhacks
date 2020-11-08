@@ -11,7 +11,6 @@
 
   </head>
   <body>
-    <div class="container">
       <img class="imageStyling" src="/res/lectern.png" alt="logo for extension">
       <h2> Manage Classes </h2>
       <div class="addClasses">
@@ -41,12 +40,19 @@
               <option value="Saturday">Saturday</option>
               <option value="Sunday">Sunday</option>
             </select>
-          </div>
-            
+            <label for="time">Course Colour</label>
+            <br>
+            <select id="colours" name="colours" class="form-control form-inline" required>
+              <option value="#CCF6C8">Cucumber</option>
+              <option value="#F9D89C">Lemon</option>
+              <option value="#3D7EA6">Blueberry</option>
+              <option value="#BE6E7D">Strawberry</option>
+              <option value="#E6A57E">Orange</option>
+            </select>
+          </div>  
           <button type="submit" class="btn btn-primary">Add Lecture</button>
         </form>     
       </div>
-    </div>
       
       <h3>Current Schedule</h3>
       <div id="currentSchedule">
@@ -77,4 +83,8 @@
   
   <!-- Scripts -->
   <script src="options.js"></script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 85c866aaa1ca0e47c4e98fef2004f5b7bec2ce90
 </html>
