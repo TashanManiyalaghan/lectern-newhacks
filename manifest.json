@@ -7,7 +7,7 @@
     "persistent": false
   },
   
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "alarms", "notifications"],
 
   "description": "Keep track of your online lectures",
   "icons": { 
